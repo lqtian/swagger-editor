@@ -9,7 +9,7 @@ SwaggerEditor.service('Builder', function Builder(SwayWorker) {
    * @returns {promise} - Returns a promise that resolves to spec document
    *  object or get rejected because of HTTP failures of external $refs
   */
-  function buildDocs(stringValue) {
+  function buildDocs(stringValue, enableSimpleYaml) {
     var json;
 
     return new Promise(function (resolve, reject) {
@@ -22,14 +22,20 @@ SwaggerEditor.service('Builder', function Builder(SwayWorker) {
         });
       }
 
+      console.log(enableSimpleYaml);
+      if(enableSimpleYaml){
+        json = Morpho.convert(stringValue, 'yaml', 'swagger', {returnJSON:true}).model;
+      }
+      else{
       // if jsyaml is unable to load the string value return yamlError
-      try {
-        json = load(stringValue);
-      } catch (yamlError) {
-        reject({
-          errors: [{yamlError: yamlError}],
-          specs: null
-        });
+        try {
+          json = load(stringValue);
+        } catch (yamlError) {
+          reject({
+            errors: [{yamlError: yamlError}],
+            specs: null
+          });
+        }
       }
 
       // Add `title` from object key to definitions

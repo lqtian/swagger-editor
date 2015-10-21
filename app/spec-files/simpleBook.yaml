@@ -1,0 +1,18 @@
+service:
+  name: Service
+types:
+  - name: Book
+    requiredProperties:
+      - Title
+      - Author
+  - name: Blog
+    key:
+      - name: ID
+        type: long
+    requiredProperties: Title
+root:
+  # Collection
+  - name: Books
+    type: Book[]
+  - name: OneBlog
+    type: Blog 

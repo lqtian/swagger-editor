@@ -52,6 +52,12 @@
 
       <ul class="dropdown-menu">
         <li>
+          <a dropdown-toggle ng-click="toggleSimpleYAML()" tabindex="-1" track-event="mode {{isSimpleYAMLEnabled()}}">
+            <i class="fa fa-cogs"></i>
+            <span>{{isSimpleYAMLEnabled() ? 'Disable' : 'Enable'}} Simple YAML</span>
+          </a>
+        </li>
+        <li>
           <a class="font-size">
             <i class="fa fa-font"></i>
             Font Size&nbsp;&nbsp;&nbsp;

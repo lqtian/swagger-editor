@@ -25,7 +25,8 @@
     "SparkMD5": "spark-md5#~1.0.0",
     "source-code-pro": "git://github.com/adobe-fonts/source-code-pro.git#156db3bf0b",
     "yaml-js": "~0.1.1",
-    "yaml-worker": "^2.0.0"
+    "yaml-worker": "^2.0.0",
+    "morpho": "~0.0.1-alpha.6"
   },
   "overrides": {
     "ace-builds": {
