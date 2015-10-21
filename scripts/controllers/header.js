@@ -165,6 +165,14 @@ SwaggerEditor.controller('HeaderCtrl', function HeaderCtrl($scope, $uibModal,
     return Boolean(Preferences).get('liveRender');
   };
 
+  $scope.toggleSimpleYAML = function(){
+    Preferences.set('simpleYAML', !Preferences.get('simpleYAML'));
+  };
+
+  $scope.isSimpleYAMLEnabled = function(){
+    return !!Preferences.get('simpleYAML');
+  };
+
   /** */
   function assignDownloadHrefs() {
     var MIME_TYPE = 'text/plain';

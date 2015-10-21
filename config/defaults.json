@@ -16,16 +16,9 @@
     "theme": "ace/theme/atom_dark"
   },
   "exampleFiles": [
-    "default.yaml",
-    "heroku-pets.yaml",
-    "minimal.yaml",
-    "echo.yaml",
-    "petstore_simple.yaml",
-    "petstore_full.yaml",
-    "basic-auth.yaml",
-    "security.yaml",
-    "instagram.yaml",
-    "twitter.yaml"
+    "simpleTrippin.yaml",
+    "simpleBook.yaml",
+    "default.yaml"
   ],
   "autocompleteExtension": {},
   "useBackendForStorage": false,

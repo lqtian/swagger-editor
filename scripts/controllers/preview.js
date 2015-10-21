@@ -41,7 +41,7 @@ SwaggerEditor.controller('PreviewCtrl', function PreviewCtrl(Storage, Builder,
 
     // Error can come in success callback, because of recursive promises
     // So we install same handler for error and success
-    Builder.buildDocs(latest).then(onBuildSuccess, onBuildFailure);
+    Builder.buildDocs(latest, Preferences.get('simpleYAML')).then(onBuildSuccess, onBuildFailure);
   }
 
   /**
