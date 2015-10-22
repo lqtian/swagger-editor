@@ -30,6 +30,8 @@ SwaggerEditor.service('FileLoader', function FileLoader($http, defaults, YAML) {
           accept: 'application/x-yaml,text/yaml,application/json,*/*'
         }
       }).then(function (resp) {
+          resolve(resp.data);
+/*
         if (angular.isObject(resp.data)) {
           YAML.dump(resp.data, function (error, yamlString) {
             if (error) { return reject(error); }
@@ -39,6 +41,7 @@ SwaggerEditor.service('FileLoader', function FileLoader($http, defaults, YAML) {
         } else {
           load(resp.data).then(resolve, reject);
         }
+*/
       }, reject);
     });
   }
