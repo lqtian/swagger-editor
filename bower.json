@@ -26,7 +26,7 @@
     "source-code-pro": "git://github.com/adobe-fonts/source-code-pro.git#156db3bf0b",
     "yaml-js": "~0.1.1",
     "yaml-worker": "^2.0.0",
-    "morpho": "~0.0.1-alpha.6"
+    "morpho": "~0.0.1-alpha.8"
   },
   "overrides": {
     "ace-builds": {
