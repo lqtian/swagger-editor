@@ -99,6 +99,9 @@ SwaggerEditor.controller('PreviewCtrl', function PreviewCtrl(Storage, Builder,
         if (result.errors[0].yamlError) {
           Editor.annotateYAMLErrors(result.errors[0].yamlError);
           $rootScope.progressStatus = 'error-yaml';
+        } else if (result.errors[0].simpleYamlError) {0
+          $rootScope.progressStatus = 'error-simple-yaml';
+          result.errors.forEach(Editor.annotateSwaggerError);
         } else if (result.errors.length) {
           $rootScope.progressStatus = 'error-swagger';
           result.errors.forEach(Editor.annotateSwaggerError);

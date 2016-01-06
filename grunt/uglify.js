@@ -17,5 +17,11 @@ module.exports = {
       'dist/bower_components/yaml-worker/bower_components/yaml-js/yaml.js': 'app/bower_components/yaml-js/yaml.js',
       'dist/bower_components/yaml-worker/bower_components/js-yaml/dist/js-yaml.js': 'app/bower_components/js-yaml/dist/js-yaml.js'
     }
+  },
+  simpleYamlWorker: {
+    files: {
+      'dist/bower_components/morpho/src/index.js':
+        'app/bower_components/morpho/src/index.js'
+    }
   }
 };

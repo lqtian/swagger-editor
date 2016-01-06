@@ -18,7 +18,8 @@ SwaggerEditor.config(function ($provide) {
       'progress-saving': 'Saving...',
       'success-saved': 'All changes saved',
       'error-yaml': 'YAML Syntax Error',
-      'error-swagger': 'Swagger Error'
+      'error-swagger': 'Swagger Error',
+      'error-simple-yaml':'Simple Yaml Error'
     }
   });
 });
