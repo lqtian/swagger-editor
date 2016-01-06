@@ -26,10 +26,7 @@ SwaggerEditor.service('Builder', function Builder(SwayWorker) {
       }
 
       console.log(enableSimpleYaml);
-      if(enableSimpleYaml){
-        json = Morpho.convert(stringValue, 'yaml', 'swagger', {returnJSON:true}).model;
-      }
-      else{
+
       // if jsyaml is unable to load the string value return yamlError
         try {
           json = load(stringValue);
@@ -39,19 +36,41 @@ SwaggerEditor.service('Builder', function Builder(SwayWorker) {
             specs: null
           });
         }
-      }
+         var prom = new Promise(function(resolve1, reject1) {
+        if(enableSimpleYaml){
+          json = Morpho.convert(stringValue, 'yaml', 'swagger', {returnJSON:true}, function(errors){
+            if(errors&&errors.length>0){
+              var newError = _.map(errors,function(error){
+                return {simpleYamlError:error};
+              });
 
-      // Add `title` from object key to definitions
-      // if they are missing title
-      if (json && _.isObject(json.definitions)) {
-        for (var definition in json.definitions) {
-          if (_.isObject(json.definitions[definition]) &&
-              !_.startsWith(definition, 'x-') &&
-              _.isEmpty(json.definitions[definition].title)) {
-            json.definitions[definition].title = definition;
+              reject({
+              errors: newError,
+              specs: null
+              });
+            } else {
+              resolve1();
+            }
+          }).model;
+        }
+        else {resolve1();}
+      });
+
+      prom.then(function() {
+        // Add `title` from object key to definitions
+        // if they are missing title
+        if (json && _.isObject(json.definitions)) {
+
+          for (var definition in json.definitions) {
+
+            if (_.isObject(json.definitions[definition]) &&
+                !_.startsWith(definition, 'x-') &&
+                _.isEmpty(json.definitions[definition].title)) {
+
+              json.definitions[definition].title = definition;
+            }
           }
         }
-      }
 
       SwayWorker.run({
         definition: json

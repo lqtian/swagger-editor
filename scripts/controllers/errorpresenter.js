@@ -68,6 +68,13 @@ SwaggerEditor.controller('ErrorPresenterCtrl', function ErrorPresenterCtrl(
       return 'Swagger Warning';
     }
 
+    if (error.simpleYamlError) {
+      if (error.level > 500) {
+        return 'Simple Yaml Error';
+      }
+      return 'Simple Yaml Warning';
+    } 
+
     if (error.yamlError) {
       return 'YAML Syntax Error';
     }
@@ -99,6 +106,10 @@ SwaggerEditor.controller('ErrorPresenterCtrl', function ErrorPresenterCtrl(
     if (error.emptyDocsError) {
       return error.emptyDocsError;
     }
+
+    if (error.simpleYamlError) {
+      return !!(error.simpleYamlError.description)?error.simpleYamlError.description:error.simpleYamlError.message;
+    } 
 
     if (error.yamlError) {
       return error.yamlError.message.replace('JS-YAML: ', '').replace(/./,
@@ -139,6 +150,17 @@ SwaggerEditor.controller('ErrorPresenterCtrl', function ErrorPresenterCtrl(
         resolve(error);
       });
     }
+    
+    if (error.simpleYamlError) {
+      var value = $rootScope.editorValue;
+      var path = _.clone(error.simpleYamlError.path);
+
+      return ASTManager.positionRangeForPath(value, path)
+        .then(function (range) {
+          error.lineNumber = range.start.line+1;
+          return error;
+        });
+    } 
 
     if (_.isArray(error.path)) {
       var value = $rootScope.editorValue;
