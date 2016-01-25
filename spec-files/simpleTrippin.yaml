@@ -1,5 +1,5 @@
 # Handcrafted YAML representation of http://services.odata.org/V4/TripPinServiceRW/$metadata
-service:
+api:
   name: "TripPin OData Reference Service"
   version:
     current: 1.0.0
