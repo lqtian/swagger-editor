@@ -38,7 +38,7 @@ SwaggerEditor.service('Builder', function Builder(SwayWorker) {
         }
          var prom = new Promise(function(resolve1, reject1) {
         if(enableSimpleYaml){
-          json = Morpho.convert(stringValue, 'yaml', 'swagger', {returnJSON:true}, function(errors){
+          json = Morpho.convert(stringValue, 'yaml', 'swagger', {returnJSON:true, addDefaults:true}, function(errors){
             if(errors&&errors.length>0){
               var newError = _.map(errors,function(error){
                 return {simpleYamlError:error};
