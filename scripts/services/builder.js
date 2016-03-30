@@ -3,7 +3,7 @@
 var jsyaml = require('js-yaml');
 var _ = require('lodash');
 
-SwaggerEditor.service('Builder', function Builder(SwayWorker) {
+SwaggerEditor.service('Builder', function Builder(SwayWorker, simpleYaml) {
   var load = _.memoize(jsyaml.load);
 
   /*
@@ -38,7 +38,8 @@ SwaggerEditor.service('Builder', function Builder(SwayWorker) {
         }
          var prom = new Promise(function(resolve1, reject1) {
         if(enableSimpleYaml){
-          json = Morpho.convert(stringValue, 'yaml', 'swagger', {returnJSON:true, addDefaults:true}, function(errors){
+          var errors = [];
+          simpleYaml.model = Morpho.convertFrom['yaml'].call(Morpho, stringValue, errors, {addDefaults:true}, function(errors){
             if(errors&&errors.length>0){
               var newError = _.map(errors,function(error){
                 return {simpleYamlError:error};
@@ -51,7 +52,11 @@ SwaggerEditor.service('Builder', function Builder(SwayWorker) {
             } else {
               resolve1();
             }
-          }).model;
+          });
+          var result;
+          if(!!simpleYaml.model){
+            simpleYaml.swagger = json = Morpho.convertTo['swagger'].call(Morpho, simpleYaml.model, errors, {returnJSON:true});
+          }
         }
         else {resolve1();}
       });
