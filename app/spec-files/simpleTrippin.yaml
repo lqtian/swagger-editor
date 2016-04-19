@@ -10,7 +10,7 @@ api:
   host: services.odata.org
   basePath: /V4/(S(cnbm44wtbc1v5bgrlek5lpcc))/TripPinServiceRW
 
-serviceRoot:
+root:
   - name: Photos
     type: photo[]
     allows : [read, create, delete]
