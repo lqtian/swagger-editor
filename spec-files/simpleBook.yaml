@@ -1,7 +1,16 @@
 api:
   name: Service
+root:
+  # Collection
+  - name: Books
+    type: Book[]
+  - name: OneBlog
+    type: Blog 
 types:
   - name: Book
+    key:
+      - name: ID
+        type: long
     requiredProperties:
       - Title
       - Author
@@ -10,9 +19,3 @@ types:
       - name: ID
         type: long
     requiredProperties: Title
-root:
-  # Collection
-  - name: Books
-    type: Book[]
-  - name: OneBlog
-    type: Blog 
