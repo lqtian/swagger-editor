@@ -28,7 +28,7 @@ SwaggerEditor.service('Preferences', function Preferences($localStorage,
     /*
      * Whether to enable the simple YAML format
     */
-    simpleYaml: true,
+    simpleYAML: true,
 
     keyPressDebounceTime: defaults.keyPressDebounceTime
   };

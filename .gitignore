@@ -13,3 +13,4 @@ buttons.diff
 .idea
 *.iml
 *.zip
+/nbproject/private/
