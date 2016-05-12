@@ -34,6 +34,7 @@ SwaggerEditor.service('Builder', function Builder(SwayWorker, simpleYaml, Prefer
 
         var swaggerRate=0;
         var simpleYamlRate=0;
+        // Based on all the required 1st-level fields to calculate which format is using. 
         for (var property in json){
           switch(property){
             case 'swagger':
