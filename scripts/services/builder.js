@@ -3,7 +3,8 @@
 var jsyaml = require('js-yaml');
 var _ = require('lodash');
 
-SwaggerEditor.service('Builder', function Builder(SwayWorker, simpleYaml) {
+SwaggerEditor.service('Builder', function Builder(SwayWorker, simpleYaml, Preferences) {
+
   var load = _.memoize(jsyaml.load);
 
   /*
@@ -12,7 +13,6 @@ SwaggerEditor.service('Builder', function Builder(SwayWorker, simpleYaml) {
    * @returns {promise} - Returns a promise that resolves to spec document
    *  object or get rejected because of HTTP failures of external $refs
   */
-
   var buildDocs = function(stringValue, enableSimpleYaml) {
     var json;
 
@@ -25,8 +25,6 @@ SwaggerEditor.service('Builder', function Builder(SwayWorker, simpleYaml) {
         });
       }
 
-      console.log(enableSimpleYaml);
-
       // if jsyaml is unable to load the string value return yamlError
         try {
           json = load(stringValue);
@@ -36,6 +34,30 @@ SwaggerEditor.service('Builder', function Builder(SwayWorker, simpleYaml) {
             specs: null
           });
         }
+
+        var swaggerRate=0;
+        var simpleYamlRate=0;
+        for (var property in json){
+          switch(property){
+            case 'swagger':
+            case 'info':
+            case 'paths':
+              swaggerRate++;break;
+            case 'api':
+            case 'root':
+            case 'types':
+              simpleYamlRate++; break;
+          }
+        }
+        
+        var enableSimpleYaml=false;
+        if(swaggerRate<simpleYamlRate)
+        {
+          enableSimpleYaml=true;
+        } 
+        Preferences.set('simpleYAML', enableSimpleYaml);
+        console.log('enableSimpleYaml:'+enableSimpleYaml);
+
          var prom = new Promise(function(resolve1, reject1) {
         if(enableSimpleYaml){
           var errors = [];
