@@ -35,28 +35,35 @@ SwaggerEditor.service('Builder', function Builder(SwayWorker, simpleYaml, Prefer
           });
         }
 
-        var swaggerRate=0;
-        var simpleYamlRate=0;
+        var swaggerRate = 0;
+        var simpleYamlRate = 0;
+        // Based on all the required 1st-level fields to calculate which format is using. 
         for (var property in json){
           switch(property){
-            case 'swagger':
-            case 'info':
-            case 'paths':
-              swaggerRate++;break;
-            case 'api':
-            case 'root':
-            case 'types':
-              simpleYamlRate++; break;
+            case 'swagger' :
+            case 'info' :
+            case 'paths' :
+            case 'host' :
+            case 'schemes' :
+            case 'basePath' :
+            case 'products' :
+            case 'definitions' :
+              swaggerRate++; 
+              break;
+            case 'api' :
+            case 'root' :
+            case 'types' :
+              simpleYamlRate++; 
+              break;
           }
         }
         
-        var enableSimpleYaml=false;
-        if(swaggerRate<simpleYamlRate)
+        var enableSimpleYaml = false;
+        if(swaggerRate < simpleYamlRate)
         {
-          enableSimpleYaml=true;
+          enableSimpleYaml = true;
         } 
-        Preferences.set('simpleYAML', enableSimpleYaml);
-        console.log('enableSimpleYaml:'+enableSimpleYaml);
+        Preferences.set('simpleYAML', enableSimpleYaml);        
 
          var prom = new Promise(function(resolve1, reject1) {
         if(enableSimpleYaml){
