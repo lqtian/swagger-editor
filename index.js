@@ -10,3 +10,6 @@ require('styles/main.less');
 
 // App JavaScript files
 require('scripts/app.js');
+
+require('morpho');
+

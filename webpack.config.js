@@ -43,7 +43,12 @@ var config = {
       },
       {
         test: /\.worker.js$/,
-        loader: 'worker-loader'
+        loader: 'worker-loader',
+        exclude: 'node_modules/'
+      },
+      {
+        test: /simpleYamlWorker.js$/,
+        loader: 'file?name=[name].[ext]'
       },
       {
         test: /\.png$/,

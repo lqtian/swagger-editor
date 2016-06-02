@@ -59,6 +59,7 @@ require('scripts/directives/tryoperation.js');
 // Enums
 require('scripts/enums/defaults.js');
 require('scripts/enums/strings.js');
+require('scripts/enums/simpleYaml.js');
 
 // Filter
 require('scripts/filters/formdata.js');

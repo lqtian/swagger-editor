@@ -65,30 +65,30 @@ SwaggerEditor.service('Builder', function Builder(SwayWorker, simpleYaml, Prefer
         } 
         Preferences.set('simpleYAML', enableSimpleYaml);        
 
-         var prom = new Promise(function(resolve1, reject1) {
-        if(enableSimpleYaml){
-          var errors = [];
-          simpleYaml.model = Morpho.convertFrom['yaml'].call(Morpho, stringValue, errors, {addDefaults:true}, function(errors){
-            if(errors&&errors.length>0){
-              var newError = _.map(errors,function(error){
-                return {simpleYamlError:error};
-              });
+        var prom = new Promise(function(resolve1, reject1) {
+          if(enableSimpleYaml){
+            var errors = [];
+            simpleYaml.model = Morpho.convertFrom['yaml'].call(Morpho, stringValue, errors, {addDefaults:true}, function(errors){
+              if(errors&&errors.length>0){
+                var newError = _.map(errors,function(error){
+                  return {simpleYamlError:error};
+                });
 
-              reject({
-              errors: newError,
-              specs: null
-              });
-            } else {
-              resolve1();
+                reject({
+                errors: newError,
+                specs: simpleYaml.swagger
+                });
+              } else {
+                resolve1();
+              }
+            });
+            var result;
+            if(!!simpleYaml.model){
+              simpleYaml.swagger = json = Morpho.convertTo['swagger'].call(Morpho, simpleYaml.model, errors, {returnJSON:true});
             }
-          });
-          var result;
-          if(!!simpleYaml.model){
-            simpleYaml.swagger = json = Morpho.convertTo['swagger'].call(Morpho, simpleYaml.model, errors, {returnJSON:true});
           }
-        }
-        else {resolve1();}
-      });
+          else {resolve1();}
+        });
 
       prom.then(function() {
         // Add `title` from object key to definitions
@@ -106,17 +106,19 @@ SwaggerEditor.service('Builder', function Builder(SwayWorker, simpleYaml, Prefer
           }
         }
 
-      SwayWorker.run({
-        definition: json
-      }, function(data) {
-        if (data.errors.length) {
-          reject(data);
-        } else {
-          resolve(data);
-        }
+        SwayWorker.run({
+          definition: json
+        }, function(data) {
+          if (data.errors.length) {
+            reject(data);
+          } else {
+            resolve(data);
+          }
+        });
       });
     });
   };
 
   this.buildDocs = buildDocs;
+  
 });
