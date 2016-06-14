@@ -6,8 +6,8 @@
     "client": "http://generator.swagger.io/api/gen/clients/{language}"
   },
   "simpleyamlcodegen": {
-    "server": "http://localhost:9002/server/codegen/?name={language}",
-    "client": "http://localhost:9002/client/codegen/?name={language}"
+    "server": "http://morpho-codegen.azurewebsites.net/server/codegen/?name={language}",
+    "client": "http://morpho-codegen.azurewebsites.net/client/codegen/?name={language}"
   }, 
   "analytics": {
     "google": {
