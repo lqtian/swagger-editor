@@ -4,48 +4,64 @@ api:
   version:
     current: 1.0.0
   description: "TripPin is a fictional reference service demonstrating the capabilities of OData v4."
+  namespace: "Microsoft.OData.SampleService.Models.TripPin"
+  host: services.odata.org
+  basePath: /V4/TripPinServiceRW
+  termsOfService: http://swagger.io/terms/
+  contact:
+    name: API Support
+    url: http://www.swagger.io/support
+    email: support@swagger.io
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
   auth: none
   conformance: minimal
   supportsFilterFunctions: [contains, endswith, startswith, length, indexof, substring, tolower, toupper, trim, concat, year, month, day, hour, minute, second, round, floor, ceiling, cast, isof]
-  host: services.odata.org
-  basePath: /V4/(S(cnbm44wtbc1v5bgrlek5lpcc))/TripPinServiceRW
 
 root:
-  - name: Photos
+  - name: photos
     type: photo[]
-    allows : [read, create, delete]
     searchable: true
     insertable: true
-  - name: People
+  - name: people
     type: person[]
-    allows : [update]
     searchable: true
     insertable: true
     concurrencyProperties: concurrency
     disallowNavigation: friends
     disallowInsert: [trips, friends]
-  - name: Airlines
+  - name: airlines
     type: airline[]
-    allows : [read, update]
     searchable: true
     insertable: true
-  - name: Airports
+  - name: airports
     type: airport[]
     searchable: true
     insertable: false
     deletable: false
-  - name: Me
+  - name: me
     type: person
-  - name: GetNearestAirport
+  - name: getNearestAirport
     params:
       - name: lat
         type: double
       - name: lon
         type: double
     returns: airport
-  - name: ResetDataSource
+  - name: resetDataSource
 
-types:  
+types:
+  - name: personGender
+    members:
+      - name: unknown
+        value: 0
+      - name: female
+        value: -1
+      - name: male
+        value: 2
+    flags: false
+    underlyingType: int32
   - name: city
     requiredProperties: [countryRegion, name, region]
   - name: location
@@ -54,6 +70,9 @@ types:
       - address
       - name: city
         type: city
+  - name: eventLocation
+    baseType: location
+    optionalProperties: buildingInfo
   - name: airportLocation
     baseType: location
     requiredProperties:
@@ -77,6 +96,8 @@ types:
         type: string[]
       - name: addressInfo
         type: location[]
+      - name: gender
+        type: personGender
       - name: concurrency
         type: int64
         computed: true
@@ -84,6 +105,7 @@ types:
         type: person[]
       - name: trips
         type: trip[]
+        containsTarget: true
       - name: photo
         type: photo
     operations:
@@ -94,7 +116,7 @@ types:
         returns: trip[]
       - name: shareTrip
         params:
-          - userName
+          - sharedTo
           - name: tripId
             type: int32
   - name: airline
@@ -122,6 +144,26 @@ types:
         type: dateTimeOffset
       - name: duration
         type: duration
+  - name: publicTransportation
+    baseType: planItem
+    optionalProperties: seatNumber
+  - name: flight
+    baseType: publicTransportation
+    requiredProperties: flightNumber
+    optionalProperties:
+      - name: from
+        type: airport
+      - name: to
+        type: airport
+      - name: airline
+        type: airline
+  - name: event
+    baseType: planItem
+    dynamic: true
+    optionalProperties:
+      - description
+      - name: occursAt
+        type: eventLocation
   - name: trip
     key: tripId
     requiredProperties:

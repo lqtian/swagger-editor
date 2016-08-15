@@ -9,11 +9,6 @@
     "server": "http://morpho-codegen.azurewebsites.net/server/codegen/?name={language}",
     "client": "http://morpho-codegen.azurewebsites.net/client/codegen/?name={language}"
   }, 
-  "analytics": {
-    "google": {
-      "id": "UA-51231036-1"
-    }
-  },
   "disableCodeGen": false,
   "examplesFolder": "spec-files/",
   "editorOptions": {

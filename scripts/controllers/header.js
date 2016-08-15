@@ -194,8 +194,11 @@ SwaggerEditor.controller('HeaderCtrl', function HeaderCtrl($scope, $uibModal,
 
       var assign = function(yaml, json) {
         // swagger and version should be a string to comfort with the schema
-        if (json.info.version) {
+        if (json.info&&json.info.version) {
           json.info.version = String(json.info.version);
+        }
+        if (json.api.version&&json.api.version.current) {
+          json.api.version.current = String(json.api.version.current);
         }
         if (json.swagger) {
           if (json.swagger === 2) {
