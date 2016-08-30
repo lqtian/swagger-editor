@@ -152,13 +152,6 @@
         </li>
         <li class="divider"></li>
         <li>
-          <a href="https://github.com/swagger-api/swagger-editor/issues/new?labels=From%20Editor" target="_blank">
-            <i class="fa fa-bug highlighted"></i>&nbsp;
-            <span>Report A Bug</span>
-          </a>
-        </li>
-        <li class="divider"></li>
-        <li>
           <a dropdown-toggle ng-click="toggleAboutEditor(true)" tabindex="-1">
             <i class="fa no-icon"></i>&nbsp;
             <span>Show Introduction Help</span>
@@ -166,8 +159,10 @@
         </li>
       </ul>
     </div>
+    <div class="privacy dropdown" uib-dropdown>
+      <a class="dropdown-toggle btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=512132"><span>Privacy &#38; Cookies</span></a>
+    </div>
   </section>
-
   <section class="status-bar">
     <div class="status {{statusClass}}" ng-if="status">
       <i ng-if="statusClass == 'working'" class="fa fa-spinner fa-pulse"></i>
