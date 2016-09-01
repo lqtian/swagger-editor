@@ -54,7 +54,23 @@ SwaggerEditor.controller('HeaderCtrl', function HeaderCtrl($scope, $uibModal,
   }
 
   $scope.getSDK = function(type, language) {
-    Codegen.getSDK(type, language).then(noop, showCodegenError);
+    if(!!Preferences.get('simpleYAML') && language === 'csharp')
+    {
+      Codegen.getSDK(type, language).then(noop, showCodegenError);
+      return;
+    }
+    $uibModal.open({
+      template: require('templates/cross-origin-prompt.html'),
+      size: 'large',
+      controller:  function CrossOriginPromptCtrl($scope,
+        $uibModalInstance, $rootScope) {
+        $scope.ok = function() {
+          $uibModalInstance.close();
+          Codegen.getSDK(type, language).then(noop, showCodegenError);
+        };
+        $scope.cancel = $uibModalInstance.close;
+      }
+    });
   };
 
   /**

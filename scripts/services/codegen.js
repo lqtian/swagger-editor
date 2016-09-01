@@ -6,7 +6,7 @@ var angular = require('angular');
  * Code Generator service
 */
 SwaggerEditor.service('Codegen', function Codegen($http, $location, defaults, simpleYaml, Preferences, Storage,
-  YAML) {
+  YAML, $rootScope) {
   this.getServers = function() {
     if (!defaults.codegen.servers) {
       return new Promise(function(resolve) {
@@ -53,7 +53,7 @@ SwaggerEditor.service('Codegen', function Codegen($http, $location, defaults, si
         }, reject);
 
       } else {
-        Storage.load('yaml').then(function (yaml) {
+       Promise.resolve($rootScope.editorValue).then(function (yaml) {
           YAML.load(yaml, function (error, spec) {
             if (error) {
               return reject(error);

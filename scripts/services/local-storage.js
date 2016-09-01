@@ -26,7 +26,8 @@ SwaggerEditor.service('LocalStorage', function LocalStorage($localStorage,
 
     _.debounce(function() {
       window.requestAnimationFrame(function() {
-        $localStorage[storageKey][key] = value;
+        // Disable local storage
+        // $localStorage[storageKey][key] = value;
       });
 
       if (key === 'yaml') {
