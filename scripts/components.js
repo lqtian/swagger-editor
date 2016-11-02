@@ -39,6 +39,7 @@ require('scripts/controllers/importurl.js');
 require('scripts/controllers/main.js');
 require('scripts/controllers/modal.js');
 require('scripts/controllers/openexamples.js');
+require('scripts/controllers/CrossOriginPromptCtrl.js');
 require('scripts/controllers/paste-json.js');
 require('scripts/controllers/preferences.js');
 require('scripts/controllers/preview.js');

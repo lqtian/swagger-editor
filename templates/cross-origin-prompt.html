@@ -3,12 +3,13 @@
 </div>
 <div class="modal-body">
   <div class="form-group">
-    <label>We will send a document, which includes the data you input, to http://generator.swagger.io to generate codes. <br><br>
-    The generation service belongs to SmartBear, you can checkout its Privacy Stagement <a href = "https://smartbear.com/privacy/">here</a>.
-    <br><br>Do you want to proceed?</label>
+    <label>Currently only C# is supported, however, you can generate other languages in <a target="_blank" href = "http://editor.swagger.io/">Swagger Service</a> by yourself with the following spec:<br><br>
+    <textarea id="prompt-swaggerspec" class="form-control" cols="30" rows="10" readonly>{{swaggerSpec}}</textarea>
+    <br><br>
   </div>
 </div>
 <div class="modal-footer">
-  <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
-  <button class="btn btn-primary" ng-click="ok()">OK</button>
+    <button class="btn btn-warning" ng-click="copy()">Copy Spec</button>
+    <a class="btn btn-primary" download="swagger.yaml" data-downloadurl="{{yamlDownloadUrl}}"
+            href="{{yamlDownloadHref}}" tabindex="-1"><span>Download Spec</span></a>
 </div>

@@ -2,7 +2,7 @@
 
 SwaggerEditor.controller('HeaderCtrl', function HeaderCtrl($scope, $uibModal,
   $stateParams, $state, $rootScope, Storage, Builder, FileLoader, Editor,
-  Codegen, Preferences, YAML, defaults, strings, $localStorage) {
+  Codegen, Preferences, YAML, defaults, strings, $localStorage, simpleYaml) {
   if ($stateParams.path) {
     $scope.breadcrumbs = [{active: true, name: $stateParams.path}];
   } else {
@@ -53,6 +53,8 @@ SwaggerEditor.controller('HeaderCtrl', function HeaderCtrl($scope, $uibModal,
     });
   }
 
+  $scope.swaggerSpec='';
+
   $scope.getSDK = function(type, language) {
     if(!!Preferences.get('simpleYAML') && language === 'csharp')
     {
@@ -62,14 +64,7 @@ SwaggerEditor.controller('HeaderCtrl', function HeaderCtrl($scope, $uibModal,
     $uibModal.open({
       template: require('templates/cross-origin-prompt.html'),
       size: 'large',
-      controller:  function CrossOriginPromptCtrl($scope,
-        $uibModalInstance, $rootScope) {
-        $scope.ok = function() {
-          $uibModalInstance.close();
-          Codegen.getSDK(type, language).then(noop, showCodegenError);
-        };
-        $scope.cancel = $uibModalInstance.close;
-      }
+      controller:  'CrossOriginPromptCtrl'
     });
   };
 
